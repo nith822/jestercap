@@ -22,6 +22,12 @@ namespace JesterCap
         private double[] warningTimes;
         private bool[] alreadyWarned;
 
+        private const string NOTIFICATION_PATH = "./Resources/notification.wav";
+        private const string NOTIFICATION_PATH_FINAL = "./Resources/notification_final.wav";
+
+        private const int FINAL_NOTIFICATION = 3;
+        private int notificationCounter;
+
         MainWindow mainWindow;
 
         public TimerLogic(MainWindow mainWindow)
@@ -131,6 +137,7 @@ namespace JesterCap
             if (currentFrame == 0)
             {
                 crownTimerStartFrame = 0;
+                notificationCounter = 0;
             }
             int framesUntilTeleport = TELEPORT_FRAME_INTERVAL - (currentFrame - crownTimerStartFrame) % TELEPORT_FRAME_INTERVAL;
             int numTeleportsThisLevel = (int)Math.Floor((currentFrame - crownTimerStartFrame) / (double)TELEPORT_FRAME_INTERVAL);
@@ -162,9 +169,18 @@ namespace JesterCap
         // https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-play-a-sound-embedded-in-a-resource-from-a-windows-form
         private void PlayNotificationSound()
         {
-            string uri = (new Uri("./Resources/notification.wav", UriKind.Relative)).ToString();
-            SoundPlayer player = new SoundPlayer(uri);
-            player.Play();
+            if(++notificationCounter < FINAL_NOTIFICATION)
+            {
+                string uri = (new Uri(NOTIFICATION_PATH, UriKind.Relative)).ToString();
+                SoundPlayer player = new SoundPlayer(uri);
+                player.Play();
+            } else
+            {
+                notificationCounter = 0;
+                string uri = (new Uri(NOTIFICATION_PATH_FINAL, UriKind.Relative)).ToString();
+                SoundPlayer player = new SoundPlayer(uri);
+                player.Play();
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Windows;
 using System.Linq;
 using System.Timers;
 using System.Configuration;
-using System.Media;
 using System.Globalization;
 
 namespace JesterCap
@@ -169,18 +168,22 @@ namespace JesterCap
         // https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-play-a-sound-embedded-in-a-resource-from-a-windows-form
         private void PlayNotificationSound()
         {
-            if(++notificationCounter < FINAL_NOTIFICATION)
+            Uri uri;
+
+            if (++notificationCounter < FINAL_NOTIFICATION)
             {
-                string uri = (new Uri(NOTIFICATION_PATH, UriKind.Relative)).ToString();
-                SoundPlayer player = new SoundPlayer(uri);
-                player.Play();
+                uri = new Uri(NOTIFICATION_PATH, UriKind.Relative);
             } else
             {
                 notificationCounter = 0;
-                string uri = (new Uri(NOTIFICATION_PATH_FINAL, UriKind.Relative)).ToString();
-                SoundPlayer player = new SoundPlayer(uri);
-                player.Play();
+                uri = new Uri(NOTIFICATION_PATH_FINAL, UriKind.Relative);
             }
+
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                mainWindow.mediaPlayer.Open(uri);
+                mainWindow.mediaPlayer.Play();
+            });
         }
     }
 }

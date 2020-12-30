@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JesterCap"
         mc:Ignorable="d"
-        Title="JesterCap" Height="218.033" Width="534.426" Icon="Resources/true_crown_icon.png" Visibility="Visible">
+        Title="JesterCap" Height="218.033" Width="667.426" Icon="Resources/true_crown_icon.png" Visibility="Visible">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -13,6 +13,8 @@
             <ColumnDefinition />
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -58,6 +60,26 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
+            </Grid>
+        </Border>
+
+        <TextBlock VerticalAlignment="Center" Margin="5,0,5,0" Grid.Column="5" Grid.Row="0" Text="&#11166;" />
+
+        <Border x:Name="PanelVolume" Grid.Column="6" Grid.Row="0" Background="#88000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" HorizontalAlignment="Center" Padding="5,3,5,3" Margin="0,10,0,10" Foreground="White">Volume</Label>
+                <Slider Grid.RowSpan="3" Grid.Row="1" 
+                        Name="RectangleHeight" 
+                        Orientation="Vertical" HorizontalAlignment="Center" 
+                        Value="0.5" Minimum="0" Maximum="1" TickPlacement="BottomRight" TickFrequency="0.1" 
+                        Padding="5,3,5,3" Margin="0,0,0,10"
+                        ValueChanged="VolumeSlider_ValueChanged"/>
             </Grid>
         </Border>
     </Grid>

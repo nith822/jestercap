@@ -11,6 +11,8 @@ namespace JesterCap
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MediaPlayer mediaPlayer;
+
         private TimerLogic timer;
 
         private bool activePanelAttach = true;
@@ -34,6 +36,16 @@ namespace JesterCap
             SetActivePanelAttach(activePanelAttach);
             SetActivePanelReader(activePanelReader);
             SetActivePanelTimer(activePanelTimer);
+
+            mediaPlayer = new MediaPlayer();
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(mediaPlayer != null)
+            {
+                mediaPlayer.Volume = e?.NewValue ?? 0.5;
+            }
         }
 
         private void ButtonAttach_Click(object sender, RoutedEventArgs e)
@@ -107,6 +119,13 @@ namespace JesterCap
                 LabelNextTeleport.Content = "0:00";
             }
             BegImage.Opacity = active ? 1 : 0;
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            //do my stuff before closing
+            mediaPlayer.Close();
+            base.OnClosing(e);
         }
     }
 }

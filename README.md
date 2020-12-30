@@ -1,3 +1,6 @@
+# Fork Changes
+This fork has a non-configurable final audio cue that is played from "Resources/notification_final". There is also a volume slider. MediaPlayer class is used instead of SoundPlayer in order to control the volume.
+
 # JesterCap
 JesterCap is a helper application that runs alongside [Spelunky 2](https://store.steampowered.com/app/418530/Spelunky_2/), a game developed by [Mossmouth](http://mossmouth.com/) and [Blitworks](https://www.blitworks.com/). There's an item in Spelunky 2 called the [True Crown](https://spelunky.fandom.com/wiki/The_True_Crown) that causes the player to teleport every 22 seconds. Bringing the True Crown to the game's true ending is an additional challenge for high-level players. JesterCap helps players manage their teleports by hooking into the Spelunky 2 process and playing an audio cue when the teleport is about to happen.
 
